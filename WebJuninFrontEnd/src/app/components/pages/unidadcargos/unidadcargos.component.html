@@ -1,0 +1,111 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-10 py-10">
+
+      <p class="font-bold text-xl">UNIDAD DE CARGOS</p>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <div class="my-2">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2"
+              (click)="openNew()"></button>
+          </div>
+        </ng-template>
+      </p-toolbar>
+
+      <!-- Tabla de Unidad de Cargos -->
+      <p-table #dt [value]="unidadCargoData" responsiveLayout="scroll" [rows]="10"
+        [globalFilterFields]="['id', 'cargo_id', 'unidad_id', 'encargado', 'periodo_id']" [paginator]="true"
+        [rowsPerPageOptions]="[5, 10, 20]" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" selectionMode="multiple"
+        [rowHover]="true" dataKey="id">
+
+    
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="id" style="text-align: center;">ID</th>
+            <th pSortableColumn="cargo_id" style="text-align: center;">Cargo</th>
+            <th pSortableColumn="unidad_id" style="text-align: center;">Unidad</th>
+            <th pSortableColumn="encargado" style="text-align: center;">Fecha Encargado</th>
+            <th pSortableColumn="periodo_id" style="text-align: center;">Periodo</th>
+            <th style="text-align: center;">Acciones</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-datos>
+          <tr>
+            <td style="text-align: center;">{{ datos.id }}</td>
+            <td style="text-align: center;">{{ getCargoNombre(datos.cargo_id) }}</td>
+            <td style="text-align: center;">{{ getUnidadNombre(datos.unidad_id) }}</td>
+            <td style="text-align: center;">{{ datos.encargado | date:'yyyy-MM-dd' }}</td>
+            <td style="text-align: center;">
+              {{ getPeriodoNombre(datos.periodo_id) }}
+            </td>
+            <td style="text-align: center;">
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2" (click)="editUnidadCargo(datos)"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteUnidadCargo(datos.id)"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <!-- Dialogo de Unidad de Cargos -->
+     <p-dialog [(visible)]="unidadCargoDialog" [style]="{width:'700px'}" header="Unidad de Cargo" [modal]="true" class="p-fluid">
+  <ng-template pTemplate="content">
+   <div class="field">
+  <label for="cargo_id" class="font-bold">Cargo:</label>
+  <p-dropdown
+    id="cargo_id"
+    [options]="cargosData"
+    optionLabel="nombre"
+    optionValue="id"
+    placeholder="Seleccione un cargo"
+    [(ngModel)]="unidadcargo.cargo_id"
+    [showClear]="true"
+    [ngClass]="{'ng-invalid ng-dirty': submitted && !unidadcargo.cargo_id}">
+  </p-dropdown>
+  <small class="ng-dirty ng-invalid" *ngIf="submitted && !unidadcargo.cargo_id">Cargo es requerido.</small>
+</div>
+    <div class="field">
+  <label for="unidad_id" class="font-bold">Unidad:</label>
+  <p-dropdown
+    id="unidad_id"
+    [options]="unidadesData"
+    optionLabel="nombre"
+    optionValue="id"
+    placeholder="Seleccione una unidad"
+    [(ngModel)]="unidadcargo.unidad_id"
+    [showClear]="true"
+    [ngClass]="{'ng-invalid ng-dirty': submitted && !unidadcargo.unidad_id}">
+  </p-dropdown>
+  <small class="ng-dirty ng-invalid" *ngIf="submitted && !unidadcargo.unidad_id">Unidad ID es requerido.</small>
+</div>
+    <div class="field">
+      <label for="encargado" class="font-bold">Fecha Encargado:</label>
+      <input type="date" pInputText id="encargado" [(ngModel)]="unidadcargo.encargado" required
+             [ngClass]="{'ng-invalid ng-dirty': submitted && !unidadcargo.encargado}" />
+      <small class="ng-dirty ng-invalid" *ngIf="submitted && !unidadcargo.encargado">Encargado es requerido.</small>
+    </div>
+    
+   <div class="field">
+  <label for="periodo_id" class="font-bold">Periodo:</label>
+  <p-dropdown
+    id="periodo_id"
+    [options]="periodosData"
+    optionLabel="nombre"
+    optionValue="id"
+    placeholder="Seleccione un periodo"
+    [(ngModel)]="unidadcargo.periodo_id"
+    [showClear]="true"
+    [ngClass]="{'ng-invalid ng-dirty': submitted && !unidadcargo.periodo_id}">
+  </p-dropdown>
+  <small class="ng-dirty ng-invalid" *ngIf="submitted && !unidadcargo.periodo_id">Periodo es requerido.</small>
+</div>
+    
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-danger" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-success" (click)="saveOrUpdateUnidadCargo()"></button>
+  </ng-template>
+</p-dialog>
+  </div>
+</div>
