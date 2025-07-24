@@ -18,7 +18,8 @@ export default {
          },
          periodo_id: {
            type: Sequelize.INTEGER,
-           allowNull: false
+           allowNull: false,
+            references: { model: 'periodo', key: 'id' },
          
        },
        grupo_ocupacional: {

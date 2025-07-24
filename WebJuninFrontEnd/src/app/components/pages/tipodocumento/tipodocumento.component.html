@@ -23,16 +23,16 @@
 
         <ng-template pTemplate="header">
           <tr>
-            <th pSortableColumn="id" style="text-align: center;">ID</th>
-            <th pSortableColumn="nombre_archivo" style="text-align: center;">Tipo de documento</th>
+             <!-- <th pSortableColumn="id" style="text-align: center;">ID</th>-->
+            <th pSortableColumn="nombre_archivo" style="text-align: left;">Tipo de documento</th>
             <th style="text-align: center;">Acciones</th>
           </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-datos>
           <tr>
-            <td style="text-align: center;">{{ datos.id }}</td>
-            <td style="text-align: center;">{{ datos.nombre_archivo }}</td>
+             <!-- <td style="text-align: center;">{{ datos.id }}</td>-->
+            <td style="text-align: left;">{{ datos.nombre_archivo }}</td>
             <td style="text-align: center;">
               <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"
                 (click)="editTipodocumento(datos)"></button>

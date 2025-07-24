@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db/conexion.js";
+import { PeriodoModel } from "./PeriodoModel.js"; // <-- AGREGA ESTA LÍNEA
 export const UnidadModel = sequelize.define('unidad', {
   id: {
     type: DataTypes.INTEGER,
@@ -34,4 +35,24 @@ export const UnidadModel = sequelize.define('unidad', {
 }, {
   tableName: 'unidad',
   timestamps: false,
+});
+
+// ASOCIACIÓN UNIDAD PADRE (auto-relación)
+UnidadModel.belongsTo(UnidadModel, {
+  foreignKey: 'unidad_padre_id',
+  as: 'unidad_padre'
+});
+UnidadModel.hasMany(UnidadModel, {
+  foreignKey: 'unidad_padre_id',
+  as: 'subunidades'
+});
+
+// ASOCIACIÓN CON PERIODO
+UnidadModel.belongsTo(PeriodoModel, {
+  foreignKey: 'periodo_id',
+  as: 'periodo'
+});
+PeriodoModel.hasMany(UnidadModel, {
+  foreignKey: 'periodo_id',
+  as: 'unidades'
 });

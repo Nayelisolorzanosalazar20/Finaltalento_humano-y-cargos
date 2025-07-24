@@ -12,10 +12,12 @@ export default {
           cargo_id: {
             type: Sequelize.INTEGER,
             allowNull: true,
+            references: { model: 'cargos', key: 'id' },
           },
           unidad_id: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: { model: 'unidad', key: 'id' },
           },
           encargado: {
             type: Sequelize.DATE,
@@ -24,6 +26,7 @@ export default {
           periodo_id: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: { model: 'periodo', key: 'id' },
           },
   
   });

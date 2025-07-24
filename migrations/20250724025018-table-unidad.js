@@ -19,6 +19,7 @@ export default {
            periodo_id: {
              type: Sequelize.INTEGER,
              allowNull: false,
+             references: { model: 'periodo', key: 'id' },
            },
            codigo: {
              type: Sequelize.STRING,

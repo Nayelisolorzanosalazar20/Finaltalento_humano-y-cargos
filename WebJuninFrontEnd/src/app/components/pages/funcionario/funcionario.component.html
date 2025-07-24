@@ -12,32 +12,23 @@
               (click)="openNew()"></button>
           </div>
         </ng-template>
+        <ng-template pTemplate="right">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+        pInputText
+        type="text"
+        placeholder="Buscar, nombre, id, apellidos..."
+        #globalFilterInput
+        (input)="dt.filterGlobal(globalFilterInput.value, 'contains')"
+        style="width: 350px; margin-left: 0.5rem"
+      />
+    </span>
+  </ng-template>
       </p-toolbar>
 <!-- Mejorado: búsqueda con lupa y botón limpiar -->
 
-<div class="p-input-icon-left" style="margin-bottom: 1em; max-width: 350px; position: relative;">
-  <i class="pi pi-search" style="left: 0.75em; top: 70%; transform: translateY(-50%); position: absolute; color: #04961e;"></i>
-  <input
-    id="busqueda-funcionario"
-    pInputText
-    type="text"
-    [(ngModel)]="textoBusqueda"
-    (input)="filtrarFuncionarios($event, dt)"
-    placeholder="Buscar id,nombres,apellidos..."
-    style="width: 100%; padding-left: 2.5em;  padding-right: 1.5em; border: 1px solid #00f72d; border-radius: 8px;"
-    autocomplete="off"
-  />
-  <button
-    *ngIf="textoBusqueda"
-    type="button"
-    class="p-button-text"
-    style="position: absolute; right: 0.5em; top: 60%; transform: translateY(-50%); background: none; border: #04961e; cursor: pointer;"
-    (click)="limpiarBusqueda(dt)"
-    aria-label="Limpiar búsqueda"
-  >
-    <i class="pi pi-times"></i>
-  </button>
-</div>
+
       <!-- Tabla de Funcionarios -->
       <p-table #dt [value]="funcionariodata" responsiveLayout="scroll" [rows]="10"
         [globalFilterFields]="['DNI', 'nombres', 'apellidos']" [paginator]="true"
@@ -47,7 +38,7 @@
 
         <ng-template pTemplate="header">
           <tr>
-            <th pSortableColumn="id" style="text-align: center;">ID</th> 
+            <!--  <th pSortableColumn="id" style="text-align: center;">ID</th> -->
             <th pSortableColumn="DNI" style="text-align: center;">Cédula</th>
             <th pSortableColumn="nombres" style="text-align: center;">Nombres</th>
             <th pSortableColumn="apellidos" style="text-align: center;">Apellidos</th>
@@ -80,7 +71,7 @@
 
         <ng-template pTemplate="body" let-datos>
           <tr>
-            <td style="text-align: center;">{{ datos.id }}</td> 
+             <!-- <td style="text-align: center;">{{ datos.id }}</td> -->
             <td style="text-align: center;">{{ datos.DNI }}</td>
             <td style="text-align: center;">{{ datos.nombres }}</td>
             <td style="text-align: center;">{{ datos.apellidos }}</td>

@@ -108,3 +108,5 @@ export default {
     await queryInterface.dropTable('funcionarios');
   }
 };
+
+
